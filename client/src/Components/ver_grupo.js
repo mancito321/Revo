@@ -51,7 +51,7 @@ class Group extends Component {
     })
   }
   componentDidMount(){
-    axios.get('http://159.89.229.68:5000/group/group')
+    axios.get('http://api-sm.cid.edu.co/group/group')
    .then((response)=>  {
       this.setState({
        group: response.data

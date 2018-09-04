@@ -37,7 +37,7 @@ class UpFile extends Component{
             'content-type': 'multipart/form-data'
         }
     }
-    axios.post('http://159.89.229.68:5000/api/auth/newfiletest', formData,config)
+    axios.post('http://api-sm.cid.edu.co/api/auth/newfiletest', formData,config)
     .then( (response) =>{
 
       console.log(response);

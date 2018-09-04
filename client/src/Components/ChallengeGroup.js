@@ -16,7 +16,7 @@ class Challenge extends Component {
     };
   }
   componentDidMount(){
-    axios.get('http://159.89.229.68:5000/challenge/actual',{
+    axios.get('http://api-sm.cid.edu.co/challenge/actual',{
       params:{
         id:this.props.id
       }

@@ -13,7 +13,7 @@ class Documents extends Component {
     };
   }
   componentDidMount(){
-    axios.get('http://159.89.229.68:5000/challenge/challenge/develops',{
+    axios.get('http://api-sm.cid.edu.co/challenge/challenge/develops',{
       params:{
         id: this.props.id
       }

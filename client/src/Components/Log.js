@@ -27,7 +27,7 @@ class Log extends Component {
   }
 
   handleSubmit (event) {
-    axios.post('http://159.89.229.68:5000/api/auth/login', {
+    axios.post('http://api-sm.cid.edu.co/api/auth/login', {
       user: this.state.text,
       password: this.state.password
     })

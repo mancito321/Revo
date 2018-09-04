@@ -59,7 +59,7 @@ class Reto extends Component {
 
   }
   componentDidMount(){
-    axios.get('http://159.89.229.68:5000/group/detail',{
+    axios.get('http://api-sm.cid.edu.co/group/detail',{
       params:{
         id: this.props.id
       }
@@ -78,7 +78,7 @@ class Reto extends Component {
 
 
 
-     axios.get('http://159.89.229.68:5000/group/participants',{
+     axios.get('http://api-sm.cid.edu.co/group/participants',{
       params:{
         id: this.props.id
       }
@@ -102,7 +102,7 @@ class Reto extends Component {
     // always executed
 
      });
-     axios.get('http://159.89.229.68:5000/challenge/desarrollo',{
+     axios.get('http://api-sm.cid.edu.co/challenge/desarrollo',{
       params:{
         id: this.props.id
       }
@@ -120,7 +120,7 @@ class Reto extends Component {
 
     // always executed
      });
-     axios.get('http://159.89.229.68:5000/challenge/boton',{
+     axios.get('http://api-sm.cid.edu.co/challenge/boton',{
        params:{
          id_challenge:this.props.id,
          id_grupo:this.props.grupo

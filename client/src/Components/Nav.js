@@ -52,18 +52,18 @@ class Header extends React.Component {
                   {context => {
                    if (context.state==1) {
                      return(
-                       <NavLink href="/nuevo_reto" name="0" onClick={this.handleChange.bind(this)}>
+                       <NavLink name="0" onClick={this.handleChange.bind(this)}>
                       <DropdownItem>
-                          Nuevo reto
+                          <Link to="/nuevo_reto">Nuevo reto</Link>
                       </DropdownItem>
                       </NavLink>
                      )
                    }
                  }}
                 </ChallengeCon>
-                 <NavLink href="/retos" name="0" onClick={this.handleChange.bind(this)}>
+                 <NavLink  name="0" onClick={this.handleChange.bind(this)}>
                 <DropdownItem>
-                    Ver retos
+                    <Link to="/retos">Ver retos</Link>
                 </DropdownItem>
                 </NavLink>
                 </DropdownMenu>
@@ -77,17 +77,17 @@ class Header extends React.Component {
                   {context => {
                    if (context.state==1) {
                      return(
-                       <NavLink href="/nuevo_grupo">
+                       <NavLink>
                        <DropdownItem>
-                         Nuevo Grupo
+                         <Link to="/nuevo_grupo">Nuevo Grupo</Link>
                       </DropdownItem></NavLink>
                      )
                    }
                  }}
                 </ChallengeCon>
-                 <NavLink href="/grupos" name="0" onClick={this.handleChange.bind(this)}>
+                 <NavLink name="0" onClick={this.handleChange.bind(this)}>
                 <DropdownItem>
-                    Ver Grupos
+                    <Link to="/grupos">Ver Grupos</Link>
                 </DropdownItem>
                 </NavLink>
                 </DropdownMenu>

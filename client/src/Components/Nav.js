@@ -63,7 +63,7 @@ class Header extends React.Component {
                 </ChallengeCon>
                  <NavLink  name="0" onClick={this.handleChange.bind(this)}>
                 <DropdownItem>
-                    <Link to="/retos">Ver retos</Link>
+                    <Link to={{pathname: "/retos", state: "edita"}}>Ver retos</Link>
                 </DropdownItem>
                 </NavLink>
                 </DropdownMenu>
@@ -87,7 +87,7 @@ class Header extends React.Component {
                 </ChallengeCon>
                  <NavLink name="0" onClick={this.handleChange.bind(this)}>
                 <DropdownItem>
-                    <Link to="/grupos">Ver Grupos</Link>
+                    <Link to={{pathname: "/grupos", state: "edita"}}>Ver Grupos</Link>
                 </DropdownItem>
                 </NavLink>
                 </DropdownMenu>

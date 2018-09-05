@@ -71,6 +71,13 @@ class Retos extends Component {
     // always executed
      });
   }
+   componentWillReceiveProps(nextProps){
+  if (nextProps.location.state === 'edita') {
+      this.setState({
+       detail: 0
+    });
+   }
+  }
   updateActive(){
     axios.post('http://api-sm.cid.edu.co/challenge/active/edit',{
       id:this.state.edit,
@@ -241,8 +248,16 @@ class Retos extends Component {
      </ChallengeCon>
 
    </Col>
-   <Col md="12" className="center margin_container"><Link to="/nuevo_reto" ><Button>Crear un reto</Button></Link></Col>
+    <ChallengeCon>
+               {context => {
+                   if (context.state==1) {
+                     return(
+                         <Col md="12" className="center margin_container"><Link to="/nuevo_reto" ><Button>Crear un reto</Button></Link></Col>
 
+                     )
+                   }
+                 }}
+ </ChallengeCon>
       </Row>
 
       </Row>

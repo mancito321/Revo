@@ -174,24 +174,19 @@ class Challenge extends Component {
           <h2 className="titulo">INICIO</h2><small>Inicio</small>
           </Col>
           <Row  className="margin_container">
-          <Col md="12"><h4 className="subtitulo">Último reto</h4></Col>
-            <Col md="4" xs="12">
-            <h5>Nombre del reto</h5>
-
-             <h5>Fecha de publicación</h5>
-
-
-                <h5>Finalizado</h5>
-
-
-           </Col>
-               <Col md="4" xs="12">
-               <h5>Documentos</h5>
-           </Col>
-               <Col md="4" xs="12">
-               <h5>Desarrollos</h5>
-           </Col>
-         </Row>
+       <h1>NO HAY RETOS!!</h1>
+          </Row>
+          <Row  className="margin_container">
+        <Col md="12" className="line">  <BarChart width={1000} height={300} data={this.state.group} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+       <CartesianGrid strokeDasharray="3 3"/>
+       <XAxis dataKey="name"/>
+       <YAxis/>
+       <Tooltip/>
+       <Legend />
+       <Bar dataKey="puntos" fill="#8884d8" minPointSize={5}>
+        </Bar>
+      </BarChart></Col>
+          </Row>
 
 
          </Row>

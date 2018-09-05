@@ -131,7 +131,7 @@ class App extends Component {
             <Route path='/nuevo_grupo' component={this.state.permission==1 ? NuevoGrupo:Grupos} />
             <Route path='/nuevo_reto' component={this.state.permission==1 ? NuevoReto:Challenge} />
             <Route path='/register' component={Reg} />
-            <Route path='/grupos' component={Grupos} />
+            <Route path='/grupos' edita="0" component={Grupos} />
             <Route path='/retos' component={Retos} />
             <Route path='/' component={Log} />
           </Switch>

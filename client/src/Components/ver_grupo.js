@@ -6,6 +6,8 @@ import Footer from './Footer'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import Grupos from './Grupo'
+
+import { ChallengeCon } from './ChallengeContext';
 import Griddle, { plugins, RowDefinition, ColumnDefinition,Components} from 'griddle-react';
 var LocalPlugin = require('griddle-react').plugins.LocalPlugin;
 const axios = require('axios');
@@ -64,6 +66,14 @@ class Group extends Component {
 
     // always executed
      });
+  
+    }
+    componentWillReceiveProps(nextProps){
+  if (nextProps.location.state === 'edita') {
+      this.setState({
+       detail: 0
+    });
+   }
   }
 
 
@@ -115,7 +125,16 @@ class Group extends Component {
     </RowDefinition>
   </Griddle>
    </Col>
+   <ChallengeCon>
+               {context => {
+                   if (context.state==1) {
+                     return(
    <Col md="12" className="center margin_container"><Link to="/nuevo_grupo" ><Button>Crear un grupo</Button></Link></Col>
+
+                     )
+                   }
+                 }}
+ </ChallengeCon>
       </Row>
 
       </Row>

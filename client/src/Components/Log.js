@@ -32,7 +32,9 @@ class Log extends Component {
       password: this.state.password
     })
     .then( (response) =>{
+      console.log('My response:');
       console.log(response);
+      console.log('My response.data:');
       console.log(response.data);
       sessionStorage.setItem('mySteamM', JSON.stringify(response.data));
       this.setState({
@@ -50,8 +52,8 @@ class Log extends Component {
     if (this.state.session === false) {
       return <Redirect to='/reto' />
     } else{
-      console.log(this.state.logged);
       return (
+
       <Container fluid="true">
          <Row className="center_full">
           <Col md="9" xs="12" className="background_login"></Col>

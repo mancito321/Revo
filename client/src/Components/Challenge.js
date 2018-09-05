@@ -25,6 +25,8 @@ class Challenge extends Component {
   componentDidMount(){
     axios.get('http://api-sm.cid.edu.co/challenge/challenge/last')
    .then((response)=>  {
+     console.log('the challenge:');
+     console.log(response);
       this.setState({
        challenge: response.data
       });
@@ -72,7 +74,8 @@ class Challenge extends Component {
   }
 
   render() {
-    console.log(this.state.session);
+    console.log('the challenge');
+    console.log(this.state.challenge[0]);
     if (this.state.session) {
       return <Redirect to='/login' />
     }else {
@@ -82,7 +85,6 @@ class Challenge extends Component {
       <Container fluid="true">
         <ChallengeCon>
           {context => {
-
             context.actions.update();
             console.log('Context :');
             console.log(context);
@@ -146,8 +148,21 @@ class Challenge extends Component {
        <footer><Footer/></footer></div>
       );
       }catch(error){
+        console.log(error);
        return(
          <div>
+         <ChallengeCon>
+           {context => {
+             context.actions.update();
+             console.log('Context :');
+             console.log(context);
+             console.log('done');
+            return(
+              <div>
+              </div>
+            )
+          }}
+         </ChallengeCon>
          <Container fluid="true">
           <Row>
           <Col md="2" className="nav_cont"><Nav/></Col>

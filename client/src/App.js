@@ -23,6 +23,7 @@ class App extends Component {
   componentDidMount(){
   console.log('did mount');
   let session=JSON.parse(sessionStorage.getItem('mySteamM'))
+  console.log('My session:');
   console.log(session);
   if (session!=null && this.state.permission==0) {
 
@@ -44,12 +45,13 @@ class App extends Component {
         console.log('Fuck '+error);
          })
          .then(()=> {
-        console.log(this.state.permission);
+           console.log('State of Permisson');
+           console.log(this.state.permission);
          });
   }
   }
   componentWillMount(){
-
+    console.log('Willmount');
 
   }
   componentDidUpdate(){
@@ -58,9 +60,9 @@ class App extends Component {
   componentWillUpdate(){
     console.log('will update');
     let session=JSON.parse(sessionStorage.getItem('mySteamM'))
+    console.log('My session');
     console.log(session);
     if (session!=null && this.state.permission==0) {
-
           axios.get('http://api-sm.cid.edu.co/api/auth/me',{
             headers: {
                 'content-type': 'multipart/form-data',
@@ -91,7 +93,6 @@ class App extends Component {
           grupo:this.state.grupo,
           actions:{
             update:()=>{if (this.state.permission==0) {
-
                    let session=JSON.parse(sessionStorage.getItem('mySteamM'))
                    axios.get('http://api-sm.cid.edu.co/api/auth/me',{
                      headers: {

@@ -171,7 +171,7 @@ class Challenge extends Component {
           <Container className="Contenido_general">
           <Row>
           <Col md="12">
-          <h2 className="titulo">INICIO</h2><small>Inicio</small>
+          <h2 className="titulo">DASHBOARD</h2><small>Resumen de actividad</small>
           </Col>
           <Row  className="margin_container">
        <h1>NO HAY RETOS!!</h1>

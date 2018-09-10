@@ -6,6 +6,7 @@ import Footer from './Footer'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import Grupos from './Grupo'
+import Filter from './Filter'
 
 import { ChallengeCon } from './ChallengeContext';
 import Griddle, { plugins, RowDefinition, ColumnDefinition,Components} from 'griddle-react';
@@ -41,7 +42,7 @@ class Group extends Component {
     const sessionchk =sessionStorage.getItem('mySteamM')===null;
     this.state = {
       session:sessionchk,
-      group : [],
+      group : [],      
       detail:"0"
     };
   }
@@ -111,13 +112,15 @@ class Group extends Component {
        </Col>
        <Row  className="margin_container">
    <Col md="12">
-     <Griddle components={{Layout: NewLayout}} data={this.state.group} plugins={[plugins.LocalPlugin]}>
+     <Griddle components={{Layout: NewLayout, Filter }} data={this.state.group} plugins={[plugins.LocalPlugin]}>
     <RowDefinition>
-      <ColumnDefinition id="logo" title="Logo" customComponent={enhancedWithRowData(id)} />
+       <ColumnDefinition id="logo" title="Logo" customComponent={enhancedWithRowData(({ value, griddleKey, rowData }) =>{
+         return <img   className="logo_grupos" src={'https://cidpullzonestorage.b-cdn.net/steammakers/grupo/'+rowData.id+'/logo.png'} />;
+          })} />
       <ColumnDefinition id="name" title="Nombre" />
       <ColumnDefinition id="iname" title="Institución Educativa" />
       <ColumnDefinition id="frname" title="Sede" />
-      <ColumnDefinition id="user" title="Master Teacher" />
+      <ColumnDefinition id="nombre" title="Master Teacher" />
       <ColumnDefinition id="participantes" title="Participantes" />
       <ColumnDefinition id="ver" title="Ver grupo" customComponent={enhancedWithRowData(({ value, griddleKey, rowData }) =>{
          return <Button name={rowData.id} onChange={this.handleChange.bind(this)} onClick={this.handleChange.bind(this)} >VER</Button>;

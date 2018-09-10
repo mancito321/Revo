@@ -93,7 +93,6 @@ class NuevoReto extends Component {
       setTimeout(()=>{ window.location.href ="/retos" }, 2000);
     })
     .catch(function (error) {
-      console.log(error);
       this.setState({ failM: true });
     });
     event.preventDefault();
@@ -279,13 +278,7 @@ class NuevoReto extends Component {
                                   <Button block disabled={!this.validateForm()} type="submit">
                                     Crear
                                   </Button>
-                                </Col>
-                                <Col md="2">
-                                  <Button block disabled={!this.validateForm()} type="submit">
-                                    Regresar
-                                  </Button>
-                                </Col>
-
+                                </Col>                                
                               </Row>
                             </Container>
                           </form>

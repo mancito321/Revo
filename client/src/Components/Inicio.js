@@ -41,12 +41,12 @@ class Inicio extends Component {
                 <Container>
                   <Row className='marginT'>
                     <h2>
-                    Inicio
+                    DASHBOARD
                   </h2>
                   </Row>
                   <Row>
                     <p>
-                      inicio
+                      Resumen de actividad
                     </p>
                   </Row>
                   <Row className='marginT'>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router'
-import { Container, Row, Col,Button, FormGroup, Input , Label,FormText,Alert  } from "reactstrap";
+import { Container, Row, Col,Button, FormGroup, Input , Label,FormText,Alert,Tooltip  } from "reactstrap";
 import Nav from './Nav'
 import Footer from './Footer'
 import Documents from './Documents'
@@ -16,6 +16,7 @@ class NuevoGrupo extends Component {
       name: "",
       usuario: "",
       password: "",
+      repassword: "",
       numero_participantes: 0,
       participante:"",
       participantes:[],
@@ -25,15 +26,22 @@ class NuevoGrupo extends Component {
       logog:null,
       fotogVal:false,
       logogVal:false,
+      nameVal:false,
       successM:false,
-      failM:false
+      tooltipOpen: false,
+      failM:false,
+      error: false
     };
     this.onDismissu = this.onDismissu.bind(this);
     this.onDismisfail = this.onDismisfail.bind(this);
   }
-
+ toggle() {
+    this.setState({
+      tooltipOpen: !this.state.tooltipOpen
+    });
+  }
   validateForm() {
-    if (this.state.franchise>0 && this.state.franchise>0) {
+    if (this.state.franchise>0 && this.state.institutions.length>0 && this.state.name.length>0 && this.state.participantes.length>0  && this.state.usuario.length>0 && this.state.password.length>0 && (this.state.repassword === this.state.password)) {
       return true
     }
   }
@@ -49,10 +57,23 @@ class NuevoGrupo extends Component {
      return this.state.ie > 0;
   }
 
+
   handleChange (event){
-    this.setState({
+     this.setState({
       [event.target.id]: event.target.value
+    },()=>{
+      if(this.state.repassword === this.state.password){
+      console.log('similar')
+    this.setState({
+     error: false
     });
+    }else{
+      console.log('no similar')
+     this.setState({
+      error: true
+     });     
+    }
+    });  
 
     axios.get('http://api-sm.cid.edu.co/group/franchises',{
       params:{
@@ -70,7 +91,36 @@ class NuevoGrupo extends Component {
     .then(()=> {
       // always executed
     });
+     axios.get('http://api-sm.cid.edu.co/group/busy',{
+      params:{
+        tabla: 'group',
+        campo: 'name',
+        valor: this.state.name
+      }
+    })
+    .then((response)=>  {
+      if(response.data >0){
+      this.setState({
+        nameVal: true
+      });
+     }else{
+      this.setState({
+        nameVal: false
+      });
+     }
+      
+    })
+    .catch((error)=>  {
+      // handle error
+    })
+    .then(()=> {
+      // always executed
+    });
+
+
+
   }
+
 
   componentDidMount(){
 
@@ -85,8 +135,14 @@ class NuevoGrupo extends Component {
     })
     .then(()=> {
     });
-  }
 
+     
+
+  }
+ componentDidUpdate(){ 
+  console.log(this.state.participantes)
+
+ }
 
   handleSubmit = event => {
     console.log({
@@ -141,6 +197,7 @@ class NuevoGrupo extends Component {
       console.log(error);
       this.setState({ failM: true });
     });
+    window.location.replace("/grupos");
     event.preventDefault();
   }
 
@@ -161,11 +218,9 @@ class NuevoGrupo extends Component {
   }
 
   onDismissu(e) {
-    console.log(e);
     this.setState({ successM: false });
   }
   onDismisfail(e) {
-    console.log(e);
     this.setState({ failM: false });
   }
 
@@ -184,7 +239,7 @@ class NuevoGrupo extends Component {
                   <Container className="Contenido_general">
                     <Row>
                       <Col md="12">
-                        <h2 className="titulo">GRUPOS</h2><small>Nuevo Grupo</small>
+                        <h2 className="titulo">GRUPOS</h2><small>Crea un nuevo grupo</small>
                       </Col>
                       <Row  className="margin_container">
                         <form onSubmit={this.handleSubmit}>
@@ -202,7 +257,7 @@ class NuevoGrupo extends Component {
                               </Col>
                               <Col md="3" xs="12">
                                 <FormGroup>
-                                  <Label>Institucion Educativa</Label>
+                                  <Label>Institucion Educativa *</Label>
                                   <Input type="select" name="select" defaultValue={this.state.ie} id="ie" onChange={this.handleChange.bind(this)} onClick={this.handleChange.bind(this)} >
                                     <option value='0'>Seleccione una institución</option>
                                     {
@@ -219,7 +274,7 @@ class NuevoGrupo extends Component {
                                 <FormGroup >
                                   <Label>Sede</Label>
                                   <Input type="select" disabled={!this.franchiseForm()} name="select"  id="franchise" onChange={this.handleChange.bind(this)} onClick={this.handleChange.bind(this)} >
-                                    <option value='0'>Seleccione una sede</option>
+                                    <option value='0'>Seleccione una sede  *</option>
                                     {
                                       this.state.franchises.map(function(item, i){
                                         return (
@@ -235,15 +290,18 @@ class NuevoGrupo extends Component {
                             <Row>
                               <Col md="3" xs="12">
                                 <FormGroup id="name">
-                                  <Label>Nombre del grupo</Label>
+                                  <Label>Nombre del grupo  *</Label>
                                   <Input  type="text" id="name"  onChange={this.handleChange.bind(this)} />
+                                    <Alert color="danger" isOpen={this.state.error}>
+                                    El nombre del grupo ya existe!
+                                  </Alert>   
                                 </FormGroup>
                               </Col>
                             </Row>
                           </Container>
                           <Container className="form_margin">
                             <Row>
-                              <Col md="12"><h5>PARTICIPANTES</h5></Col>
+                              <Col md="12"><h5>PARTICIPANTES  *</h5></Col>
                             </Row>
                             <Row>
                               <Col md="3" xs="12">
@@ -266,7 +324,7 @@ class NuevoGrupo extends Component {
                                       return (
                                         <Row key={'Row'+i}>
                                           <Col md="10" key={item}>{item}</Col>
-                                          <Col md="2" key={i} onClick={this.delete_participante.bind(this,item)} >delete</Col>
+                                          <Col md="2" key={i} onClick={this.delete_participante.bind(this,item)} ><span class="eliminar_button">Eliminar</span></Col>
                                         </Row>
                                       );
                                     }.bind(this))
@@ -279,7 +337,7 @@ class NuevoGrupo extends Component {
                             <Row>
                               <Col md="6">
                                 <FormGroup id="participantes">
-                                  <Label for="exampleFile">Foto de los participantes</Label>
+                                  <Label for="exampleFile">Foto de los participantes *</Label>
                                   <Input type="file" name="fotog"  onChange={this.handleDropFile} />
 
                                   <FormText color="muted">
@@ -294,7 +352,7 @@ class NuevoGrupo extends Component {
                             <Row>
                               <Col md="6">
                                 <FormGroup id="logo">
-                                  <Label for="exampleFile">Logo del grupo</Label>
+                                  <Label for="exampleFile">Logo del grupo *</Label>
                                   <Input type="file" name="logog"  onChange={this.handleDropFile} />
                                   <FormText color="muted">
                                     Advertencia sobre formato y peso del contenido a cargar
@@ -313,7 +371,7 @@ class NuevoGrupo extends Component {
                             <Row>
                               <Col md="3" xs="12">
                                 <FormGroup id="user">
-                                  <Label>Usuario de grupo</Label>
+                                  <Label>Usuario de grupo *</Label>
                                   <Input  type="text"  id="usuario" onChange={this.handleChange.bind(this)} />
                                   <FormText color="muted">
                                     Caracteristicas del nombre de usuario
@@ -324,10 +382,21 @@ class NuevoGrupo extends Component {
                             <Row>
                               <Col md="3" xs="12">
                                 <FormGroup id="password">
-                                  <Label>Clave de grupo</Label>
+                                  <Label>Clave de grupo *</Label>
                                   <Input  type="password" id="password" value={this.state.password} onChange={this.handleChange.bind(this)} />
                                   <FormText color="muted">
                                     Caracteristicas de la clave de grupo
+                                  </FormText>
+                                </FormGroup>
+                              </Col>
+                              <Col md="3" xs="12">
+                                <FormGroup id="password">
+                                  <Label>Confirmar clave de grupo *</Label>
+                                  <Input  type="password" id="repassword" value={this.state.Repassword} onChange={this.handleChange.bind(this)} />
+                                  <FormText color="muted">
+                                   <Alert color="danger" isOpen={this.state.error}>
+                                    Las contraseñas no coiciden!
+                                  </Alert>                               
                                   </FormText>
                                 </FormGroup>
                               </Col>
@@ -339,12 +408,7 @@ class NuevoGrupo extends Component {
                                 <Button block disabled={!this.validateForm()} type="submit" >
                                   Crear
                                 </Button>
-                              </Col>
-                              <Col md="2">
-                                <Button block disabled={!this.validateForm()} type="submit" >
-                                  Regresar
-                                </Button>
-                              </Col>
+                              </Col>                             
 
                             </Row>
                           </Container>

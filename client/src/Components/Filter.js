@@ -14,10 +14,10 @@ render() {
                 <input 
                   type="text" 
                   className="form-control"
-                  placeholder="search" 
+                  placeholder="Filtrar" 
                   onChange={this.onChange}
                 />
-                <label htmlFor="search" className="icon icon-1202" rel="tooltip" title="search"></label>
+                <label htmlFor="Buscar" className="icon icon-1202" rel="tooltip" title="buscar"></label>
               </div> 
  )
 }

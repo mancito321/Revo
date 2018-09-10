@@ -28,6 +28,24 @@ z-index: 1;
 .recharts-surface{
   width: 100% !important;
 }
+.logo_grupos{
+      max-width: 50px;
+}
+.searchInput{
+      width: 28%;
+    float: right;
+}
+.eliminar_button{
+    border: 1px solid black;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+.eliminar_button:hover{
+   transition:0.5s background;
+   background: #cacaca
+}
 .App-title {
   font-size: 1.5em;
 }

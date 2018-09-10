@@ -69,7 +69,7 @@ class Retos extends Component {
      .then(()=> {
       console.log(this.state.retos)
     // always executed
-     });
+     });  
   }
    componentWillReceiveProps(nextProps){
   if (nextProps.location.state === 'edita') {
@@ -114,6 +114,7 @@ class Retos extends Component {
   }
  componentDidUpdate(){
   console.log(this.state.active)
+
  }
 
   handleChange (event){
@@ -145,7 +146,9 @@ class Retos extends Component {
     });
   };
 
+
   render() {
+     
     let GridFixMt=(<Griddle components={{Layout: NewLayout}} data={this.state.retos} plugins={[plugins.LocalPlugin]}>
    <RowDefinition>
      <ColumnDefinition id="logo" title="Logo" customComponent={enhancedWithRowData(id)} />
@@ -163,7 +166,7 @@ class Retos extends Component {
 
    </RowDefinition>
  </Griddle>)
- let GridFixSt=(<Griddle components={{Layout: NewLayout}} data={this.state.retos} plugins={[plugins.LocalPlugin]}>
+ let GridFixSt=(<Griddle components={{Layout: NewLayout}} data={this.state.retos}  plugins={[plugins.LocalPlugin]}>
 <RowDefinition>
   <ColumnDefinition id="logo" title="Logo" customComponent={enhancedWithRowData(id)} />
   <ColumnDefinition id="name" title="Nombre" />
@@ -235,13 +238,27 @@ class Retos extends Component {
      <ChallengeCon>
        {context => {
          console.log('context State');
-         console.log(context.state);
-          if (context.state==1) {
-            return(
-                  GridFixMt
-            )
+                 if (context.state==1) {
+            if(this.state.challenge != undefined){
+              return(
+                    GridFixMt
+             )
+            }else{
+              return(
+                <p>Aún no existen retos ¿Has pensado en crear uno?</p>
+                )
+            }
+            
           }else if (context.state==2) {
-            return(GridFixSt)
+             if(this.state.challenge != undefined){
+              return(
+                    GridFixSt
+             )
+            }else{
+              return(
+                <p>Aún no existen retos ¿Has pensado en crear uno?</p>
+                )
+            }         
           }
 
       }}
@@ -257,7 +274,7 @@ class Retos extends Component {
                      )
                    }
                  }}
- </ChallengeCon>
+    </ChallengeCon>
       </Row>
 
       </Row>
